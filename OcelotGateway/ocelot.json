@@ -1,0 +1,47 @@
+{
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:8900",
+    "ServiceDiscoveryProvider": {
+      "Scheme": "",
+      "Host": "localhost",
+      "Port": 8500,
+      "Type": "Consul",
+      "ConfigurationKey": "Oceolot_A"
+    }
+  },
+
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/{url}", //下游（转发的服务地址模板）
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/WebSocketTest/{url}", //上游（请求路径模板）
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete"
+      ],
+      "ServiceName": "WebSocketTest",
+      "UseServiceDiscovery": true,
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin" //轮询
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/{url}", //下游（转发的服务地址模板）
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/ConsulTestWebAPI/{url}", //上游（请求路径模板）
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete"
+      ],
+      "ServiceName": "ConsulTestWebAPI",
+      "UseServiceDiscovery": true,
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin" //轮询
+      }
+    }
+  ]
+}
